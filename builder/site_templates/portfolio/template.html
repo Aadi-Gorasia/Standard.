@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The business name will be injected here -->
+    <title>{{ business_name }}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>{{ business_name }}</h1>
+        <p>{{ tagline }}</p>
+    </header>
+    <main>
+        <section class="about">
+            <h2>About Us</h2>
+            <p>{{ about_text }}</p>
+        </section>
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <p>Get in touch at: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>© {% now "Y" %} {{ business_name }}. All rights reserved.</p>
+    </footer>
+</body>
+</html>
