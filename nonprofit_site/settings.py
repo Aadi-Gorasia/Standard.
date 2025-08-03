@@ -1,13 +1,16 @@
-# nonprofit_site/settings.py
+# nonprofit_site/settings.py - FINAL PRODUCTION VERSION
 
 from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!)ec9cl_m5faw8(878e0bl0%!0ykb#_v0^_t*5&*3^zzc*fzag')
+
+# This is the robust way to handle DEBUG. It's False unless explicitly set to 'True'.
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+# This setup allows your Render URL, plus your local server for testing.
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -26,8 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # THE FIX IS HERE: Add WhiteNoise middleware right after security.
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # WhiteNoise middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -47,11 +49,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
-# THE FIX IS HERE: These lines configure Django and WhiteNoise for static files.
-# This tells Django where to collect all static files into a single folder.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# This tells Django to use WhiteNoise's optimized storage backend.
 STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
